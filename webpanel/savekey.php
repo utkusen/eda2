@@ -1,6 +1,7 @@
 <?php
 
-if(!isset($_POST) || empty($_POST['pcname'])) {
+include 'config.php';
+if(!isset($_POST) || empty($_POST['pcname']) || @$_POST['servkey'] != $servkey) {
 	exit;
 }
 
