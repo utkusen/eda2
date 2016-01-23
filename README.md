@@ -8,4 +8,4 @@
 
 **Abandoned**
 
-This project is abandoned due to magic ransomware incident.
+This project is abandoned due to magic ransomware incident. More info: http://www.utkusen.com/blog/project-eda2-is-abandoned-due-to-magic-ransomware-incident.html
