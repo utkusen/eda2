@@ -6,6 +6,4 @@
          \___|\__,_|\__,_|____|
 
 
-**Abandoned**
-
-This project is abandoned due to magic ransomware incident. More info: http://www.utkusen.com/blog/project-eda2-is-abandoned-due-to-magic-ransomware-incident.html
+This project is abandoned. If you are a researcher and want the code, contact me with your university or company e-mail http://utkusen.com/en/contact.html
